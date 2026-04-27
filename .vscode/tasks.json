@@ -67,6 +67,16 @@
         "Android: Install Debug"
       ],
       "problemMatcher": []
+    },
+    {
+      "label": "Android: Prepare Java Debug Attach",
+      "type": "shell",
+      "command": "$pkg = 'com.vestis.wardrobe'; $pid = (adb shell pidof -s $pkg).Trim(); if (-not $pid) { Write-Error \"Could not find running pid for $pkg. Run 'Android: Run Debug (Wait for Debugger)' first.\"; exit 1 }; adb forward --remove tcp:8700 2>$null; adb forward tcp:8700 jdwp:$pid; Write-Host \"Forwarded localhost:8700 -> jdwp:$pid ($pkg)\"",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Android: Run Debug (Wait for Debugger)"
+      ],
+      "problemMatcher": []
     }
   ]
 }
